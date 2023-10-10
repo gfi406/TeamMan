@@ -1,0 +1,79 @@
+package com.example.springdatabasicdemo.models;
+
+import jakarta.persistence.*;
+import org.hibernate.annotations.Cascade;
+
+import java.util.List;
+@Entity
+@Table(name = "Projects")
+public class Projects extends BaseEntity
+{
+
+    private String name,info,deadline,stat;
+    @OneToMany(mappedBy = "project",cascade = CascadeType.REMOVE)
+    private List<Team> teams;
+    @OneToMany(mappedBy = "project",cascade = CascadeType.REMOVE)
+    private List<Tasks> tasks;
+    public Projects(String name, String info, String deadline, String stat) {
+        this.name = name;
+        this.info = info;
+        this.stat = stat;
+        this.deadline = deadline;
+    }
+    public Projects() {}
+    public Team getTeam()
+    {
+        return (Team) teams;
+    }
+    public void setTeams(List<Team> teams)
+    {
+        this.teams = teams;
+    }
+    public  Tasks getTasks()
+    {
+        return (Tasks) tasks;
+    }
+    public void setTasks(List<Tasks> tasks)
+    {
+        this.tasks = tasks;
+    }
+    @Column(name = "name", length = 50, nullable = false)
+    public String getName()
+    {
+        return name;
+    }
+    public void setName(String name)
+    {
+        this.name = name;
+    }
+    @Column(name = "info", length = 150, nullable = false)
+    public String getInfo()
+    {
+        return info;
+    }
+    public void setInfo(String name)
+    {
+        this.info = name;
+    }
+    @Column(name = "deadline", length = 20, nullable = false)
+    public String getDeadline()
+    {
+        return deadline;
+    }
+    public void setDeadline(String name)
+    {
+        this.deadline = name;
+    }
+    @Column(name = "stat", length = 20, nullable = false)
+    public String getStat()
+    {
+        return stat;
+    }
+    public void setStat(String name)
+    {
+        this.stat = name;
+    }
+
+}
+
+
