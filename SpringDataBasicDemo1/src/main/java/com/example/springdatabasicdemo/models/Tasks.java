@@ -8,7 +8,7 @@ import java.util.List;
 public class Tasks extends BaseEntity
 {
 
-    @ManyToOne(cascade =  CascadeType.MERGE)
+    @ManyToOne(cascade =  CascadeType.MERGE,fetch = FetchType.LAZY)
     @JoinColumn(name = "project_id")
     public Projects project;
     public String name,info,deadline,stat;

@@ -12,7 +12,6 @@ import java.util.List;
 public interface ClerkRepository extends JpaRepository<Clerk, Long> {
     @Query("SELECT c FROM Clerk c WHERE c.team.name = :teamName")
     List<Clerk> findAllByTeamName(@Param("teamName") String teamName);
-
     @Query("SELECT c FROM Clerk c ORDER BY c.KPI DESC LIMIT :lim")
     List<Clerk> findClerkByKpiOrderByKpiDesc(@Param("lim") int lim);
 }

@@ -9,7 +9,7 @@ public class Clerk extends BaseEntity
     private String name;
     private String title,teamName;
     private int KPI;
-    @ManyToOne(cascade =  CascadeType.MERGE)
+    @ManyToOne(cascade =  CascadeType.MERGE,fetch = FetchType.LAZY)
     @JoinColumn(name = "team_id")
     private Team team;
 
@@ -48,7 +48,7 @@ public class Clerk extends BaseEntity
     {
        this.team = team;
     }
-    @Column(name= "KPI",length = 50, nullable = false)
+    @Column(name= "kpi",length = 50, nullable = false)
     public int getKPI() {
         return KPI;
     }

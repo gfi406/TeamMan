@@ -50,6 +50,13 @@ public class TeamServiceImpl implements TeamService {
                 .collect(Collectors.toList());
     }
     @Override
+    public List<TeamDto> getTopKpiTeam(int kpi,int lim){
+        return teamRepository.getTopKpiTeam(kpi,lim)
+                .stream()
+                .map(e -> modelMapper.map(e, TeamDto.class))
+                .collect(Collectors.toList());
+    }
+    @Override
     public List<CountDto> findCount(){
         List<CountDto> result = teamRepository.getTeamClerksCountDto();
 

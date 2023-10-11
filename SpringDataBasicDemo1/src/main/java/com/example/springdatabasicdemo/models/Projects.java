@@ -10,9 +10,9 @@ public class Projects extends BaseEntity
 {
 
     private String name,info,deadline,stat;
-    @OneToMany(mappedBy = "project",cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "project",cascade = CascadeType.REMOVE,fetch = FetchType.LAZY)
     private List<Team> teams;
-    @OneToMany(mappedBy = "project",cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "project",cascade = CascadeType.REMOVE,fetch = FetchType.LAZY)
     private List<Tasks> tasks;
     public Projects(String name, String info, String deadline, String stat) {
         this.name = name;

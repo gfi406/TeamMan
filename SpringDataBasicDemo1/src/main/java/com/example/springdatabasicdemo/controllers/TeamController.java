@@ -12,7 +12,6 @@ import java.util.List;
 
 @RestController
 public class TeamController {
-
     @Autowired
     private TeamRepository teamRepository;
     @Autowired
@@ -33,15 +32,16 @@ public class TeamController {
     public void deleteTeam(@PathVariable Long id) {
          teamService.deleteTeam(id);
     }
+    @GetMapping("/teams/top/{kpi}_{lim}")
+    public List<TeamDto> getTopKpi(@PathVariable int kpi,@PathVariable int lim) {
+        return teamService.getTopKpiTeam(kpi,lim);
+    }
     @GetMapping("/teams/clerks/id_{id}")
     public  List<ClerkDto> getAllClerkFromTeam(@PathVariable Long id) {
         return  teamService.getAllClerkFromTeam(id);
     }
-
     @GetMapping("/teams/count")
     public List<CountDto> getTeamClerksCount() {
-
         return teamService.findCount();
-
     }
 }

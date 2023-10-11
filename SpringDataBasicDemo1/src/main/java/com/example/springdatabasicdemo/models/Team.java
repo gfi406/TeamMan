@@ -8,11 +8,11 @@ public class Team extends BaseEntity
 {
 
     private String name;
-    @ManyToOne
+    @ManyToOne(cascade =  CascadeType.MERGE,fetch = FetchType.LAZY)
     @JoinColumn(name="project_id")
     private Projects project;
 
-    @OneToMany(mappedBy = "team",cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "team",cascade = CascadeType.REMOVE,fetch = FetchType.LAZY)
     private List<Clerk> clerks;
     public List<Clerk> getClerks() {
         return clerks;

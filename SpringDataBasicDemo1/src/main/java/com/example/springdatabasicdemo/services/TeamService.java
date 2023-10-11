@@ -1,5 +1,6 @@
 package com.example.springdatabasicdemo.services;
 import com.example.springdatabasicdemo.dtos.*;
+import com.example.springdatabasicdemo.models.Team;
 
 import java.util.List;
 
@@ -9,6 +10,7 @@ public interface TeamService
 
     TeamDto getTeamById(Long id);
     List<TeamDto> getAllTeams();
+    List<TeamDto> getTopKpiTeam(int kpi,int lim);
 
     List<CountDto> findCount();
 

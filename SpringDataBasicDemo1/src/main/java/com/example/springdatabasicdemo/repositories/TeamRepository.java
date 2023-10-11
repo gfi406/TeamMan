@@ -25,5 +25,8 @@ public interface TeamRepository extends JpaRepository<Team,Long>
             "GROUP BY t.name")
     List<CountDto> getTeamClerksCountDto();
 
+    @Query("select t from Team t join Clerk c on t.id = c.team.id GROUP BY t HAVING SUM(c.KPI) >= :kpi order by  SUM(c.KPI) asc limit :lim ")
+    List<Team> getTopKpiTeam(@Param("kpi") int kpi,@Param("lim") int lim);
+
 
 }
