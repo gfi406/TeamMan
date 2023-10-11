@@ -23,7 +23,7 @@ public class ClerkController {
     public ClerkDto one(@PathVariable Long id)  {
         return clerkService.findClerk(id);
     }
-    @GetMapping("/clerks/team/{teamName}")
+    @GetMapping("/teams/clerks/name_{teamName}")
     public List<ClerkDto> getByTeamName(@PathVariable String teamName) {
         return clerkService.findClerksByTeamName(teamName);
     }

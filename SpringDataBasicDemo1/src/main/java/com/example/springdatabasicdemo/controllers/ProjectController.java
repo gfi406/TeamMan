@@ -23,10 +23,10 @@ public class ProjectController {
     public List<ProjectDto> getProjects() {
         return projectService.getAllProjects();
     }
-//    @GetMapping("/{projectName}/clerks")
-//    public List<ClerkDto> getClerksByProjectName(@PathVariable String projectName) {
-//        return projectService.findAllClerksByProjectName(projectName);
-//    }
+    @GetMapping("/{projectName}/clerks")
+    public List<ClerkDto> getClerksByProjectName(@PathVariable String projectName) {
+        return projectService.findAllClerksByProjectName(projectName);
+    }
     @PostMapping("/projects/update/{id}")
     public void updateProject(@RequestBody ProjectDto projectDto,@PathVariable Long id){
          projectService.updateProject(projectDto,id);

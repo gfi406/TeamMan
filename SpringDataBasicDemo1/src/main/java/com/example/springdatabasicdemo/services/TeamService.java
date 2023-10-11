@@ -12,6 +12,6 @@ public interface TeamService
 
     List<CountDto> findCount();
 
-
+    List<ClerkDto> getAllClerkFromTeam(Long teamId);
     void deleteTeam(Long id);
 }

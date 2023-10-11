@@ -1,17 +1,20 @@
 package com.example.springdatabasicdemo.dtos;
 
+import org.springframework.web.bind.annotation.Mapping;
+
+
 public class ClerkDto
 {
     public Long id, teamId;
     public int KPI;
-    public String title,teamName,name;
-    public ClerkDto (Long id, String name, String title, Long teamId, String teamName,int KPI)
+    public String title,name;
+    public ClerkDto (Long id, String name, String title, Long teamId,int KPI)
     {
         this.id = id;
         this.name = name;
         this.title = title;
         this.teamId = teamId;
-        this.teamName = teamName;
+       // this.teamName = teamName;
         this.KPI = KPI;
     }
     public ClerkDto(){}
@@ -56,11 +59,11 @@ public class ClerkDto
     {
         this.teamId = teamId;
     }
-    public String _getTeamName(){ return teamName;}
-    public void _setTeamName(String teamName)
-    {
-        this.teamName = teamName;
-    }
+//    public String _getTeamName(){ return teamName;}
+//    public void _setTeamName(String teamName)
+//    {
+//        this.teamName = teamName;
+//    }
 
 
 }

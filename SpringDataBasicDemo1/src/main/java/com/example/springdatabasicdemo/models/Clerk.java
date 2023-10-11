@@ -12,6 +12,9 @@ public class Clerk extends BaseEntity
     @ManyToOne(cascade =  CascadeType.MERGE)
     @JoinColumn(name = "team_id")
     private Team team;
+
+
+
     public Clerk(String name, String title,int KPI) {
         this.name = name;
         this.title = title;
@@ -45,7 +48,7 @@ public class Clerk extends BaseEntity
     {
        this.team = team;
     }
-    @Column(name= "KPI",length = 50, nullable = false, columnDefinition = "VARCHAR(50) CHECK (UPPER(KPI) = KPI)")
+    @Column(name= "KPI",length = 50, nullable = false)
     public int getKPI() {
         return KPI;
     }
@@ -58,10 +61,10 @@ public class Clerk extends BaseEntity
     public void setTeamName(String teamName) {
         this.teamName = teamName;
     }
-    public String toString()
-    {
-        return "Clerk { id=" + id + ", name=" + name + "team"+team + " }";
-    }
+//    public String toString()
+//    {
+//        return "Clerk { id=" + id + ", name=" + name + "team"+team + " }";
+//    }
 }
 
 

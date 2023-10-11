@@ -16,5 +16,6 @@ public interface ClerkService {
     List<ClerkDto> findClerksByTeamName(String teamName);
     List<ClerkDto> getAll();
     ClerkDto register(ClerkDto newClerk);
+
     void deleteClerk(Long id);
 }

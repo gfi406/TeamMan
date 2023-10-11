@@ -1,8 +1,10 @@
 package com.example.springdatabasicdemo.services.impl;
 
+import com.example.springdatabasicdemo.dtos.ClerkDto;
 import com.example.springdatabasicdemo.dtos.CountDto;
 import com.example.springdatabasicdemo.dtos.TaskDto;
 import com.example.springdatabasicdemo.dtos.TeamDto;
+import com.example.springdatabasicdemo.models.Clerk;
 import com.example.springdatabasicdemo.models.Projects;
 import com.example.springdatabasicdemo.models.Team;
 import com.example.springdatabasicdemo.repositories.TeamRepository;
@@ -33,6 +35,12 @@ public class TeamServiceImpl implements TeamService {
     public TeamDto getTeamById(Long id) {
         Team team = teamRepository.findById(id).orElse(null);
         return modelMapper.map(team,TeamDto.class);
+    }
+    @Override
+    public List<ClerkDto> getAllClerkFromTeam(Long teamId){
+        List<Clerk> clerks = teamRepository.getAllClerkFromTeam(teamId);
+        return  clerks.stream().map(e -> modelMapper.map(e, ClerkDto.class)).collect(Collectors.toList());
+
     }
     @Override
     public List<TeamDto> getAllTeams() {

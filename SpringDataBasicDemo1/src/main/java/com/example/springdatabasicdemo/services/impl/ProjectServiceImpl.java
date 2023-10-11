@@ -2,6 +2,7 @@ package com.example.springdatabasicdemo.services.impl;
 import com.example.springdatabasicdemo.dtos.ClerkDto;
 import com.example.springdatabasicdemo.dtos.ProjectDto;
 import com.example.springdatabasicdemo.dtos.TaskDto;
+import com.example.springdatabasicdemo.models.Clerk;
 import com.example.springdatabasicdemo.models.Projects;
 import com.example.springdatabasicdemo.models.Team;
 import com.example.springdatabasicdemo.repositories.ProjectRepository;
@@ -19,11 +20,13 @@ import java.util.stream.Collectors;
 public class ProjectServiceImpl implements ProjectService {
     private final   ProjectRepository projectRepository;
     private final ModelMapper modelMapper;
+
     @Autowired
     public ProjectServiceImpl(ProjectRepository projectRepository,ModelMapper modelMapper  ){
         this.projectRepository = projectRepository;
         this.modelMapper = modelMapper;
     }
+
 
     @Override
     public ProjectDto createProject(ProjectDto projectDto) {
@@ -36,6 +39,14 @@ public class ProjectServiceImpl implements ProjectService {
     public ProjectDto getProjectById(Long id) {
         Projects project = projectRepository.findById(id).orElse(null);
         return modelMapper.map(project,ProjectDto.class);
+    }
+    @Override
+    public List<ClerkDto> findAllClerksByProjectName(String name){
+       List<Clerk> clerk = projectRepository.findAllClerksByProjectName(name);
+        return clerk.stream()
+                .map(e -> modelMapper.map(e, ClerkDto.class))
+                .collect(Collectors.toList());
+
     }
     @Override
     public List<ProjectDto> getAllProjects() {

@@ -1,4 +1,5 @@
 package com.example.springdatabasicdemo.controllers;
+import com.example.springdatabasicdemo.dtos.ClerkDto;
 import com.example.springdatabasicdemo.dtos.CountDto;
 import com.example.springdatabasicdemo.dtos.TeamDto;
 import com.example.springdatabasicdemo.services.TeamService;
@@ -32,6 +33,11 @@ public class TeamController {
     public void deleteTeam(@PathVariable Long id) {
          teamService.deleteTeam(id);
     }
+    @GetMapping("/teams/clerks/id_{id}")
+    public  List<ClerkDto> getAllClerkFromTeam(@PathVariable Long id) {
+        return  teamService.getAllClerkFromTeam(id);
+    }
+
     @GetMapping("/teams/count")
     public List<CountDto> getTeamClerksCount() {
 
