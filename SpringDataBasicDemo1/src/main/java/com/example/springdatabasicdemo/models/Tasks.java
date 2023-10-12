@@ -4,28 +4,18 @@ import jakarta.persistence.*;
 import java.util.List;
 
 @Entity
-@Table(name = "Tasks")
+@Table(name = "task")
 public class Tasks extends BaseEntity
 {
 
     @ManyToOne(cascade =  CascadeType.MERGE,fetch = FetchType.LAZY)
     @JoinColumn(name = "project_id")
     public Projects project;
-    public String name,info,deadline,stat;
+    public String info,deadline,stat;
 
     public Tasks() {
 
     }
-    @Column(name = "name", length = 50, nullable = false)
-    public String getName()
-    {
-        return name;
-    }
-    public void setName(String name)
-    {
-        this.name = name;
-    }
-
     @Column(name = "info", length = 150, nullable = false)
     public String getInfo()
     {
@@ -53,9 +43,6 @@ public class Tasks extends BaseEntity
     {
         this.stat = name;
     }
-
-
-
     public Projects getProject() {
         return project;
     }
@@ -66,7 +53,7 @@ public class Tasks extends BaseEntity
 
     public Tasks(String name, String info, String deadline, String stat) {
 
-        this.name = name;
+        this.setName(name);
         this.info = info;
         this.deadline = deadline;
         this.stat = stat;

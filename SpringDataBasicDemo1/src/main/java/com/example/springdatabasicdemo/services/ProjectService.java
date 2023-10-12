@@ -12,5 +12,6 @@ public interface ProjectService
     List<ProjectDto> getAllProjects();
    List<ClerkDto> findAllClerksByProjectName(String name);
     ProjectDto updateProject(ProjectDto projectDto,Long id);
+    ProjectDto getBest();
     void deleteProject(Long id);
 }

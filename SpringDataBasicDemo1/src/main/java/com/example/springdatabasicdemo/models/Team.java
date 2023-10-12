@@ -7,7 +7,7 @@ import java.util.List;
 public class Team extends BaseEntity
 {
 
-    private String name;
+    //private String name;
     @ManyToOne(cascade =  CascadeType.MERGE,fetch = FetchType.LAZY)
     @JoinColumn(name="project_id")
     private Projects project;
@@ -17,20 +17,11 @@ public class Team extends BaseEntity
     public List<Clerk> getClerks() {
         return clerks;
     }
-    public Team(String s) {
-        this.name = s;
+    public Team(String name) {
+        this.setName(name);
     }
     public Team() {
 
-    }
-    @Column(name = "name", length = 50, nullable = false)
-    public String getName()
-    {
-        return name;
-    }
-    public void setName(String name)
-    {
-        this.name = name;
     }
     public Projects getProject()
     {
@@ -45,6 +36,6 @@ public class Team extends BaseEntity
     }
     @Override
     public String toString() {
-        return "Team { id" + id + ", name = " + name  + "}";
+        return "Team { id" + id + ", name = " + this.getName()  + "}";
     }
 }

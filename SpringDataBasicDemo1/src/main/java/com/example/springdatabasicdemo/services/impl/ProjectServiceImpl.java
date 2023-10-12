@@ -71,5 +71,11 @@ public class ProjectServiceImpl implements ProjectService {
         projectRepository.deleteById(id);
     }
 
+    @Override
+     public  ProjectDto getBest(){
+       Projects project = projectRepository.findBestProject();
+        return modelMapper.map(project,ProjectDto.class);
+    }
+
 
 }

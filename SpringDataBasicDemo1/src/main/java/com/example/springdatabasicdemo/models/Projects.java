@@ -5,17 +5,17 @@ import org.hibernate.annotations.Cascade;
 
 import java.util.List;
 @Entity
-@Table(name = "Projects")
+@Table(name = "project")
 public class Projects extends BaseEntity
 {
 
-    private String name,info,deadline,stat;
+    private String info,deadline,stat;
     @OneToMany(mappedBy = "project",cascade = CascadeType.REMOVE,fetch = FetchType.LAZY)
     private List<Team> teams;
     @OneToMany(mappedBy = "project",cascade = CascadeType.REMOVE,fetch = FetchType.LAZY)
     private List<Tasks> tasks;
     public Projects(String name, String info, String deadline, String stat) {
-        this.name = name;
+        this.setName(name);
         this.info = info;
         this.stat = stat;
         this.deadline = deadline;
@@ -37,15 +37,7 @@ public class Projects extends BaseEntity
     {
         this.tasks = tasks;
     }
-    @Column(name = "name", length = 50, nullable = false)
-    public String getName()
-    {
-        return name;
-    }
-    public void setName(String name)
-    {
-        this.name = name;
-    }
+
     @Column(name = "info", length = 150, nullable = false)
     public String getInfo()
     {

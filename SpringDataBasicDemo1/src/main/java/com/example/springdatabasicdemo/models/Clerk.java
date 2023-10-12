@@ -2,11 +2,11 @@ package com.example.springdatabasicdemo.models;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "Clerk")
+@Table(name = "clerk")
 public class Clerk extends BaseEntity
 {
 
-    private String name;
+    //private String name;
     private String title,teamName;
     private int KPI;
     @ManyToOne(cascade =  CascadeType.MERGE,fetch = FetchType.LAZY)
@@ -16,21 +16,12 @@ public class Clerk extends BaseEntity
 
 
     public Clerk(String name, String title,int KPI) {
-        this.name = name;
+        this.setName(name);
         this.title = title;
         this.KPI = KPI;
     }
 
     public Clerk() { }
-    @Column(name = "name", length = 50, nullable = false)
-    public String getName()
-    {
-        return name;
-    }
-    public void setName(String name)
-    {
-        this.name = name;
-    }
     @Column(name = "title", length = 50, nullable = false)
     public String getTitle()
     {

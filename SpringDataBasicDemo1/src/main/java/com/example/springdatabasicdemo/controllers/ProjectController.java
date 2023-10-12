@@ -35,4 +35,9 @@ public class ProjectController {
     public void deleteProject(@PathVariable Long id){
         projectService.deleteProject(id);
     }
+    @GetMapping("/best")
+    public ProjectDto getBestProject() {
+        return projectService.getBest();
+    }
+
 }
