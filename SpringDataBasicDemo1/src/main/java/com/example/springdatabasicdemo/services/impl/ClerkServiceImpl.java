@@ -5,6 +5,7 @@ import com.example.springdatabasicdemo.dtos.ProjectDto;
 import com.example.springdatabasicdemo.models.Clerk;
 import com.example.springdatabasicdemo.models.Team;
 import com.example.springdatabasicdemo.repositories.ClerkRepository;
+import com.example.springdatabasicdemo.repositories.TeamRepository;
 import com.example.springdatabasicdemo.services.ClerkService;
 
 import org.modelmapper.ModelMapper;
@@ -12,17 +13,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 public class ClerkServiceImpl implements ClerkService {
     private final ClerkRepository clerkRepository;
+    private final TeamRepository teamRepository;
     private final ModelMapper modelMapper;
     @Autowired
-    public ClerkServiceImpl(ClerkRepository clerkRepository,ModelMapper modelMapper)
+    public ClerkServiceImpl(ClerkRepository clerkRepository,ModelMapper modelMapper,TeamRepository teamRepository)
     {
         this.clerkRepository = clerkRepository;
         this.modelMapper = modelMapper;
+        this.teamRepository = teamRepository;
     }
     @Override
     public void transfer(Long clerkId, Long teamId)
@@ -35,6 +39,41 @@ public class ClerkServiceImpl implements ClerkService {
             clerkRepository.save(clerk);
         }
     }
+    @Override
+    public  ClerkDto updateClerk (ClerkDto clerkDto, Long id){
+        Optional<Clerk> clerkUP = clerkRepository.findById(id);// ищем сотрудника по ид
+        if (clerkUP.isPresent()){   //  если нашли
+
+            Clerk exClerk = clerkUP.get();// то что мы будем изменять
+            Long teamId = exClerk.getTeam().getId();
+            Optional<Team> team = teamRepository.findById(teamId);
+            Team exTeam = team.get();
+            modelMapper.map(clerkDto,exClerk);// изменяем на полученую дто
+            exClerk.setTeam(exTeam);
+            Clerk updateClerk = clerkRepository.save(exClerk);// сохраняем
+            return  modelMapper.map(updateClerk,ClerkDto.class);
+        }
+        return null;
+    }
+//    public ClerkDto updateClerk(ClerkDto clerkDto, Long id) {
+//
+//        Clerk clerk = clerkRepository.findById(id)
+//                .orElseThrow(() -> new RuntimeException("Not found"));
+//
+//        Long teamId = clerk.getTeam().getId();
+//
+//        Team team = teamRepository.findById(teamId)
+//                .orElseThrow(() -> new RuntimeException("Team not found"));
+//
+//        clerk.setTeam(team);
+//
+//        modelMapper.map(clerkDto, clerk);
+//
+//        Clerk updatedClerk = clerkRepository.save(clerk);
+//
+//        return modelMapper.map(updatedClerk, ClerkDto.class);
+//
+//    }
 
     @Override
     public ClerkDto findClerk(Long id)

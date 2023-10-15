@@ -15,23 +15,21 @@ public interface ProjectRepository extends JpaRepository<Projects, Long> {
     List<Projects> findAll();
     @Query("Select c FROM Clerk c JOIN Team t on c.team.id = t.id join Projects p on  t.project.id = p.id where p.name = :projectName")
     List<Clerk> findAllClerksByProjectName(@Param("projectName") String projectName);
-//    @Query(value = "SELECT p  FROM Projects p  " +
-//            "JOIN Team t ON p.id = t.project.id" +
-//            " join Clerk c  ON c.team.id = t.id " +
-//            "WHERE p.id = (" +
-//            "select p.id " +
-//            "from Projects p " +
-//            "join Tasks ts on p.id = ts.project_id" +
-//            " WHERE ts.stat = 'Done' and p.id = (" +
-//            "SELECT t.project_id " +
-//            "FROM team t  " +
-//            "JOIN clerk c ON t.id = c.team_id  " +
-//            "GROUP BY t.project_id  " +
-//            "ORDER BY SUM(c.kpi) DESC  " +
-//            "LIMIT 1) " +
-//            "group by p.id order by count(ts.id) desc limit 1) " +
-//            "limit 1",
-//            nativeQuery = false)
-//    Projects findBestProject();
+    @Query(value = "select p " +
+            " from Projects p " +
+            "join Tasks ts on p.id = ts.project.id " +
+            " WHERE ts.stat = 'Done' " +
+            " and " +
+            " p.id = (" +
+            "    SELECT t.project.id" +
+            "    FROM Team t" +
+            "    JOIN Clerk c ON t.id = c.team.id" +
+            "    GROUP BY t.project.id" +
+            "    ORDER BY SUM(c.KPI) DESC" +
+            "    LIMIT 1) " +
+            "group by p.id " +
+            "order by count(ts.id) desc limit 1",
+            nativeQuery = false)
+    Projects findBestProject();
 //    //нужен запрос который выведет проект в котором больше всего выполненых задач и команда с самым высоким kpi
 }

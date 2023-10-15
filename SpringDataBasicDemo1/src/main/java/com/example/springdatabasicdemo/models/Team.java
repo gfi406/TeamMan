@@ -8,6 +8,7 @@ public class Team extends BaseEntity
 {
 
     //private String name;
+
     @ManyToOne(cascade =  CascadeType.MERGE,fetch = FetchType.LAZY)
     @JoinColumn(name="project_id")
     private Projects project;

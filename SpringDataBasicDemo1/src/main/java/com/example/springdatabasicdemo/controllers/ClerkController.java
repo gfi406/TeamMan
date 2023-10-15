@@ -1,6 +1,7 @@
 package com.example.springdatabasicdemo.controllers;
 
 import com.example.springdatabasicdemo.dtos.ClerkDto;
+import com.example.springdatabasicdemo.dtos.ProjectDto;
 import com.example.springdatabasicdemo.services.ClerkService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
@@ -26,6 +27,10 @@ public class ClerkController {
     @GetMapping("/teams/clerks/name_{teamName}")
     public List<ClerkDto> getByTeamName(@PathVariable String teamName) {
         return clerkService.findClerksByTeamName(teamName);
+    }
+    @PostMapping("/clerks/update/{id}")
+    public void updateProject(@RequestBody ClerkDto clerkDto, @PathVariable Long id){
+        clerkService.updateClerk(clerkDto,id);
     }
     @GetMapping("/clerks/top_kpi_{lim}")
     public List<ClerkDto> findClerkByKPI(@PathVariable int lim){
