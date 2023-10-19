@@ -63,9 +63,10 @@ public class ClerkServiceImpl implements ClerkService {
 
             Optional<Team> newTeam = teamRepository.findById(newTeamId);
             if (newTeam.isPresent()) {
+                System.out.println("MESSAGE");
                 Team updatedTeam = newTeam.get();
                 exClerk.setTeam(updatedTeam);
-
+                modelMapper.map(clerkDto,exClerk);
                 Clerk updatedClerk = clerkRepository.save(exClerk);
                 return modelMapper.map(updatedClerk, ClerkDto.class);
             }
