@@ -44,4 +44,9 @@ public class TeamController {
     public List<CountDto> getTeamClerksCount() {
         return teamService.findCount();
     }
+    @PostMapping("/teams/update/{id}")
+    public void updateProject(@RequestBody TeamDto clerkDto, @PathVariable Long id){
+        teamService.updateTeam(clerkDto,id);
+    }
+
 }

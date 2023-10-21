@@ -17,5 +17,7 @@ public interface TaskService
     List<TaskDto> getTasksByProjectName(String projectName);
     void deleteTask(Long id);
 
+    TaskDto updateTask(TaskDto taskDto, Long id);
+
     List<TaskDto> findLastDoneTasks(String stat,int lim,int month);
 }

@@ -13,6 +13,7 @@ public interface TeamService
     List<TeamDto> getTopKpiTeam(int kpi,int lim);
 
     List<CountDto> findCount();
+    TeamDto updateTeam(TeamDto teamDto, Long id);
 
     List<ClerkDto> getAllClerkFromTeam(Long teamId);
     void deleteTeam(Long id);

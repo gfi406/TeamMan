@@ -7,6 +7,7 @@ import com.example.springdatabasicdemo.dtos.TeamDto;
 import com.example.springdatabasicdemo.models.Clerk;
 import com.example.springdatabasicdemo.models.Projects;
 import com.example.springdatabasicdemo.models.Team;
+import com.example.springdatabasicdemo.repositories.ProjectRepository;
 import com.example.springdatabasicdemo.repositories.TeamRepository;
 import com.example.springdatabasicdemo.services.TeamService;
 
@@ -15,16 +16,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Service
 public class TeamServiceImpl implements TeamService {
     private final TeamRepository teamRepository;
     private final ModelMapper modelMapper;
+    private  final ProjectRepository projectRepository;
     @Autowired
-    public TeamServiceImpl(TeamRepository teamRepository ,ModelMapper modelMapper) {
+    public TeamServiceImpl(TeamRepository teamRepository ,ModelMapper modelMapper,ProjectRepository projectRepository) {
         this.teamRepository = teamRepository;
         this.modelMapper = modelMapper;
+        this.projectRepository = projectRepository;
     }
     @Override
     public void deleteTeam(Long id) {
@@ -71,6 +75,24 @@ public class TeamServiceImpl implements TeamService {
         Team team = modelMapper.map(teamDto,Team.class);
         team = teamRepository.save(team);
         return modelMapper.map(team,TeamDto.class);
+    }
+    @Override
+    public TeamDto updateTeam(TeamDto teamDto, Long id) {
+        Optional<Team> teamUP = teamRepository.findById(id);
+        if (teamUP.isPresent()) {
+            Team exteam = teamUP.get();
+            Long newPjId = teamDto._getProjectId();
+            Optional<Projects> newPj = projectRepository.findById(newPjId);
+            if (newPj.isPresent()) {
+                Projects updatePj = newPj.get();
+                exteam.setProject(updatePj);
+                modelMapper.map(teamDto, exteam);
+                Team updatedTeam = teamRepository.save(exteam);
+                return modelMapper.map(updatedTeam, TeamDto.class);
+            }
+
+        }
+        return null;
     }
 
 

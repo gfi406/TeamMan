@@ -1,6 +1,7 @@
 package com.example.springdatabasicdemo.controllers;
 
 import com.example.springdatabasicdemo.dtos.TaskDto;
+import com.example.springdatabasicdemo.dtos.TeamDto;
 import com.example.springdatabasicdemo.services.TaskService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -45,5 +46,9 @@ public class TaskController {
             @PathVariable int month
     ){
         return taskService.findLastDoneTasks(stat, lim, month);
+    }
+    @PostMapping("/tasks/update/{id}")
+    public void updateProject(@RequestBody TaskDto clerkDto, @PathVariable Long id){
+        taskService.updateTask(clerkDto,id);
     }
 }
